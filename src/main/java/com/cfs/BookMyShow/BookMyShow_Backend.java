@@ -9,7 +9,7 @@ public class BookMyShow_Backend {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(BookMyShowApplication.class, args);
+		SpringApplication.run(BookMyShow_Backend.class, args);
 	}
 
 	 // done with the project for now
