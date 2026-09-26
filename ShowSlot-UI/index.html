@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover movies, showtimes and book your perfect seats.">
+    <meta name="theme-color" content="#171719">
+    <title>ShowSlot | Movies, Events & More</title>
+
+```
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+>
+
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+    <div class="site-shell">
+
+```
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="topbar">
+
+        <a
+            class="brand"
+            href="#top"
+            aria-label="ShowSlot home"
+        >
+            <span class="brand-mark" aria-hidden="true">S</span>
+
+            <span class="brand-name" style="font-size: 1.25em;">ShowSlot<span class="brand-dot">.</span></span>
+        </a>
+
+        <label class="search-box">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Search for movies, events, plays..."
+                autocomplete="off"
+                aria-label="Search movies, events and plays"
+            >
+        </label>
+
+        <div class="header-actions">
+
+            <label class="city-picker">
+                <span aria-hidden="true">⌖</span>
+
+                <select
+                    id="citySelect"
+                    aria-label="Select city"
+                >
+                    <option value="Bengaluru">Bengaluru</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Delhi">Delhi</option>
+                </select>
+            </label>
+
+            <button
+                id="profileButton"
+                class="profile-button"
+                type="button"
+                aria-label="Account"
+            >
+                RS
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main id="top">
+
+        <!-- HERO -->
+
+        <section
+            class="hero-section"
+            aria-label="Featured movie"
+        >
+
+            <div class="hero-image-wrap">
+                <img
+                    id="heroImage"
+                    class="hero-image"
+                    src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1600"
+                    alt="Featured movie artwork"
+                >
+            </div>
+
+            <div class="hero-copy">
+
+                <p class="eyebrow">
+                    Featured tonight ·
+                    <span id="heroLanguage">Now showing</span>
+                </p>
+
+                <h1 id="heroTitle">
+                    Find a story<br>
+                    <em>worth leaving home for.</em>
+                </h1>
+
+                <p
+                    id="heroDescription"
+                    class="hero-description"
+                >
+                    Big screens, first-day energy, and a seat with your name on it.
+                </p>
+
+                <div class="hero-details">
+
+                    <span id="heroGenre">
+                        Cinema · Experience
+                    </span>
+
+                    <i aria-hidden="true"></i>
+
+                    <span>
+                        2D · Dolby Atmos
+                    </span>
+
+                </div>
+
+                <button
+                    id="heroBrowseButton"
+                    class="primary-button"
+                    type="button"
+                >
+                    Explore movies
+                    <span aria-hidden="true">→</span>
+                </button>
+
+            </div>
+
+            <div
+                class="hero-meta"
+                aria-hidden="true"
+            >
+                <span>01</span>
+                <i></i>
+                <span id="heroCount">05</span>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             MOVIES
+        ========================== -->
+
+        <section
+            class="content-section"
+            id="moviesSection"
+            aria-labelledby="moviesHeading"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        Handpicked for you
+                    </p>
+
+                    <h2 id="moviesHeading">
+                        Movies you’ll love
+                    </h2>
+
+                </div>
+
+                <button
+                    id="viewAllButton"
+                    class="text-button"
+                    type="button"
+                >
+                    View all
+                    <span aria-hidden="true">↗</span>
+                </button>
+
+            </div>
+
+
+            <!-- Movie filters -->
+
+            <div
+                id="movieFilters"
+                class="filter-rail"
+                aria-label="Movie categories"
+            >
+
+                <button
+                    class="filter-button active"
+                    data-filter="All"
+                    type="button"
+                    aria-pressed="true"
+                >
+                    All movies
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="Hindi"
+                    type="button"
+                    aria-pressed="false"
+                >
+                    Bollywood
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="English"
+                    type="button"
+                    aria-pressed="false"
+                >
+                    Hollywood
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="Action"
+                    type="button"
+                    aria-pressed="false"
+                >
+                    Action
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="Comedy"
+                    type="button"
+                    aria-pressed="false"
+                >
+                    Comedy
+                </button>
+
+            </div>
+
+
+            <!-- Movie cards are populated by app.js -->
+
+            <div
+                id="movieGrid"
+                class="movie-grid"
+                aria-live="polite"
+                aria-busy="true"
+            >
+                <div class="loading-state">
+                    <span class="loader" aria-hidden="true"></span>
+                    Finding the best stories...
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SHOWTIMES
+        ========================== -->
+
+        <section
+            class="showtimes-section"
+            id="showtimesSection"
+            aria-labelledby="showtimesHeading"
+        >
+
+            <div class="section-heading showtimes-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        Plan your evening
+                    </p>
+
+                    <h2 id="showtimesHeading">
+                        Showtimes near you
+                    </h2>
+
+                </div>
+
+                <div
+                    id="datePicker"
+                    class="date-picker"
+                    aria-label="Choose date"
+                ></div>
+
+            </div>
+
+
+            <div
+                id="showList"
+                class="show-list"
+                aria-live="polite"
+                aria-busy="true"
+            >
+                <div class="loading-state">
+                    <span class="loader" aria-hidden="true"></span>
+                    Loading showtimes...
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="brand footer-brand">
+
+            <span
+                class="brand-mark"
+                aria-hidden="true"
+            >
+                S
+            </span>
+
+            <span class="brand-name" style="font-size: 1.25em;">ShowSlot<span class="brand-dot">.</span></span>
+
+        </div>
+
+        <span>
+            Made for moments that deserve a bigger screen.
+        </span>
+
+        <span>
+            © 2026 ShowSlot
+        </span>
+
+    </footer>
+
+</div>
+
+
+<!-- =========================
+     SEAT BOOKING MODAL
+========================== -->
+
+<div
+    id="bookingModal"
+    class="modal-backdrop"
+    hidden
+>
+
+    <section
+        class="booking-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+
+        <button
+            id="closeModalButton"
+            class="close-button"
+            type="button"
+            aria-label="Close booking dialog"
+        >
+            ×
+        </button>
+
+        <div class="modal-header">
+
+            <p class="eyebrow">
+                Choose your view
+            </p>
+
+            <h2 id="modalTitle">
+                Select your seats
+            </h2>
+
+            <p
+                id="modalSubtitle"
+                class="muted-text"
+            ></p>
+
+        </div>
+
+
+        <div
+            class="screen-label"
+            aria-hidden="true"
+        >
+            <span></span>
+            SCREEN
+            <span></span>
+        </div>
+
+
+        <div
+            id="seatGrid"
+            class="seat-grid"
+            aria-label="Seat selection"
+        ></div>
+
+
+        <div class="seat-legend">
+
+            <span>
+                <i class="legend-seat available"></i>
+                Available
+            </span>
+
+            <span>
+                <i class="legend-seat selected"></i>
+                Selected
+            </span>
+
+            <span>
+                <i class="legend-seat occupied"></i>
+                Booked
+            </span>
+
+        </div>
+
+
+        <div class="booking-bottom">
+
+            <div>
+                <span class="muted-text">
+                    Total amount
+                </span>
+
+                <strong id="totalAmount">
+                    ₹0
+                </strong>
+            </div>
+
+            <button
+                id="continueButton"
+                class="primary-button"
+                type="button"
+                disabled
+            >
+                Continue
+                <span aria-hidden="true">→</span>
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     CUSTOMER CONFIRMATION MODAL
+========================== -->
+
+<div
+    id="customerModal"
+    class="modal-backdrop"
+    hidden
+>
+
+    <section
+        class="booking-modal customer-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="customerTitle"
+    >
+
+        <button
+            id="closeCustomerButton"
+            class="close-button"
+            type="button"
+            aria-label="Close booking dialog"
+        >
+            ×
+        </button>
+
+        <div class="modal-header">
+
+            <p class="eyebrow">
+                Almost there
+            </p>
+
+            <h2 id="customerTitle">
+                Confirm your booking
+            </h2>
+
+            <p
+                id="bookingProfileLabel"
+                class="muted-text"
+            ></p>
+
+        </div>
+
+
+        <form
+            id="customerForm"
+            class="customer-form"
+        >
+
+            <div class="form-summary">
+
+                <span id="formSeats"></span>
+
+                <strong id="formTotal"></strong>
+
+            </div>
+
+            <button
+                class="primary-button form-submit"
+                type="submit"
+            >
+                Confirm booking
+                <span aria-hidden="true">→</span>
+            </button>
+
+            <p
+                id="bookingError"
+                class="form-error"
+                role="alert"
+            ></p>
+
+        </form>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     ACCOUNT MODAL
+========================== -->
+
+<div
+    id="accountModal"
+    class="modal-backdrop"
+    hidden
+>
+
+    <section
+        class="booking-modal account-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="accountTitle"
+    >
+
+        <button
+            id="closeAccountButton"
+            class="close-button"
+            type="button"
+            aria-label="Close account dialog"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-header">
+
+            <p class="eyebrow">
+                Your Showtime profile
+            </p>
+
+            <h2 id="accountTitle">
+                Your tickets, together.
+            </h2>
+
+            <p class="muted-text">
+                Create a profile before booking, or log in with your email or mobile number.
+            </p>
+
+        </div>
+
+
+        <div
+            id="profileAuth"
+            class="profile-auth"
+        >
+
+            <div class="auth-tabs">
+
+                <button
+                    id="createTab"
+                    class="auth-tab active"
+                    type="button"
+                >
+                    Create profile
+                </button>
+
+                <button
+                    id="loginTab"
+                    class="auth-tab"
+                    type="button"
+                >
+                    Log in
+                </button>
+
+            </div>
+
+
+            <!-- Create profile -->
+
+            <form
+                id="profileCreateForm"
+                class="account-form"
+            >
+
+                <label>
+                    Full name
+
+                    <input
+                        id="profileName"
+                        required
+                        maxlength="100"
+                        placeholder="Your name"
+                    >
+                </label>
+
+
+                <label>
+                    Email address
+
+                    <input
+                        id="profileEmail"
+                        required
+                        type="email"
+                        maxlength="200"
+                        placeholder="you@example.com"
+                    >
+                </label>
+
+
+                <label>
+                    Mobile number
+
+                    <input
+                        id="profilePhone"
+                        required
+                        type="tel"
+                        pattern="[0-9+ ()-]{10,20}"
+                        maxlength="20"
+                        placeholder="98765 43210"
+                    >
+                </label>
+
+
+                <button
+                    class="primary-button form-submit"
+                    type="submit"
+                >
+                    Create profile
+                    <span aria-hidden="true">→</span>
+                </button>
+
+
+                <p
+                    id="profileCreateError"
+                    class="form-error"
+                    role="alert"
+                ></p>
+
+            </form>
+
+
+            <!-- Login -->
+
+            <form
+                id="profileLoginForm"
+                class="account-form"
+                hidden
+            >
+
+                <label>
+                    Email or mobile number
+
+                    <input
+                        id="profileIdentifier"
+                        required
+                        placeholder="you@example.com or 98765 43210"
+                    >
+                </label>
+
+
+                <button
+                    class="primary-button form-submit"
+                    type="submit"
+                >
+                    Log in
+                    <span aria-hidden="true">→</span>
+                </button>
+
+
+                <p
+                    id="profileLoginError"
+                    class="form-error"
+                    role="alert"
+                ></p>
+
+            </form>
+
+        </div>
+
+
+        <!-- Logged-in profile -->
+
+        <div
+            id="profileView"
+            class="profile-view"
+            hidden
+        >
+
+            <div class="profile-summary">
+
+                <div
+                    class="profile-avatar"
+                    aria-hidden="true"
+                >
+                    S
+                </div>
+
+                <div>
+
+                    <strong id="profileDisplayName"></strong>
+
+                    <p id="profileDisplayContact"></p>
+
+                </div>
+
+                <button
+                    id="logoutButton"
+                    class="text-button"
+                    type="button"
+                >
+                    Log out
+                </button>
+
+            </div>
+
+
+            <h3 class="history-title">
+                My bookings
+            </h3>
+
+
+            <div
+                id="bookingHistory"
+                class="booking-history"
+                aria-live="polite"
+            ></div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     SUCCESS NOTIFICATION
+========================== -->
+
+<div
+    id="successToast"
+    class="success-toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+
+<script src="app.js"></script>
+```
+
+</body>
+</html>
