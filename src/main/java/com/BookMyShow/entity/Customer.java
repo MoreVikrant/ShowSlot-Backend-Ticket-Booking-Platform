@@ -61,4 +61,11 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false ,length = 20)
+    private Role roles = Role.USER;  //Everyone
+
+
+
 }

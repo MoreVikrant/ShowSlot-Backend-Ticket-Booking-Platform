@@ -44,7 +44,7 @@ public class Show {
         this.endsAt = endsAt;
         this.totalSeats = totalSeats;
         this.ticketPrice = ticketPrice;
-        this.availableSeats = availableSeats;  // removed available seats because intially the total seats are the available seats
+        this.availableSeats = totalSeats;  // nobody has booked anything yet.
     }
 
     public Long getId() {
