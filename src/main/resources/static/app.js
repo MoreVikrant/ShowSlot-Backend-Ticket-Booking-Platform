@@ -41,12 +41,23 @@ const FALLBACK_MOVIES = [
         genre: "Action/Thriller",
         certificate: "UA",
         posterUrl: "./images/mulshi-pattern.jpg"
-    }
+    },
+    {
+            id: 6,
+            title: "Jwan",
+            language: "Hindi",
+            genre: "Action/Thriller",
+            certificate: "UA",
+            posterUrl: "./images/jawan.jpg"
+        }
 ];
 
-const savedProfile = JSON.parse(
-    localStorage.getItem("showtimeProfile") || "null"
-);
+const savedToken = localStorage.getItem("showtimeToken");
+
+// a saved profile without a token is an old-style login, so ignore it
+const savedProfile = savedToken
+    ? JSON.parse(localStorage.getItem("showtimeProfile") || "null")
+    : null;
 
 const state = {
     movies: [],
@@ -56,6 +67,7 @@ const state = {
     selectedDate: dateKey(new Date(Date.now() + 86400000)),
     activeFilter: "All",
     profile: savedProfile,
+    token: savedToken,
     pendingShowId: null
 };
 
@@ -104,19 +116,49 @@ function normalizePhone(value) {
 ========================================================= */
 
 async function fetchJson(path, options = {}) {
+    const headers = { "Content-Type": "application/json" };
+
+    // Send the token only to protected endpoints. The server rejects an expired token
+    // even on public URLs, which would break browsing movies after it expires.
+    const needsAuth = path.startsWith("/bookings") ||
+        path.startsWith("/profiles/me") ||
+        path.startsWith("/admin");
+
+    if (needsAuth && state.token) {
+        headers["Authorization"] = `Bearer ${state.token}`;
+    }
+
     const response = await fetch(`${API_BASE}${path}`, {
-        headers: {
-            "Content-Type": "application/json"
-        },
-        ...options
+        ...options,
+        headers
     });
 
     if (!response.ok) {
+        if (response.status === 401 && needsAuth) {
+            clearSession();   // token expired or invalid: log the user out
+        }
+
         const error = await response.json().catch(() => ({}));
         throw new Error(error.message || "Something went wrong");
     }
 
     return response.json();
+}
+
+function setSession(auth) {
+    state.token = auth.accessToken;
+    localStorage.setItem("showtimeToken", auth.accessToken);
+    setProfile(auth.profile);
+}
+
+function clearSession() {
+    state.token = null;
+    state.profile = null;
+
+    localStorage.removeItem("showtimeToken");
+    localStorage.removeItem("showtimeProfile");
+
+    renderProfile();
 }
 
 
@@ -538,6 +580,7 @@ function closeModals() {
     $("#bookingModal").hidden = true;
     $("#customerModal").hidden = true;
     $("#accountModal").hidden = true;
+    $("#adminModal").hidden = true;
 
     document.body.style.overflow = "";
 }
@@ -576,6 +619,8 @@ function openAccountModal() {
 
 function renderProfile() {
     const profile = state.profile;
+
+    updateAdminButton();
 
     $("#profileAuth").hidden = Boolean(profile);
     $("#profileView").hidden = !profile;
@@ -704,7 +749,7 @@ async function loadBookingHistory() {
 
     try {
         const bookings = await fetchJson(
-            `/profiles/${state.profile.id}/bookings`
+            "/profiles/me/bookings"
         );
 
         renderBookingHistory(bookings);
@@ -734,8 +779,7 @@ async function cancelBooking(bookingId) {
         await fetchJson(
             `/bookings/${bookingId}/cancel`,
             {
-                method: "POST",
-                body:JSON.stringify(state.profile.id)
+                method: "POST"
             }
         );
 
@@ -893,23 +937,39 @@ $("#profileCreateForm").addEventListener(
         error.textContent = "";
 
         try {
-            const profile = await fetchJson(
+            const email = $("#profileEmail").value;
+            const password = $("#profilePassword").value;
+
+            await fetchJson(
                 "/profiles",
                 {
                     method: "POST",
 
                     body: JSON.stringify({
                         name: $("#profileName").value,
-                        email: $("#profileEmail").value,
-                        phone: $("#profilePhone").value
+                        email,
+                        phone: $("#profilePhone").value,
+                        password
                     })
                 }
             );
 
-            setProfile(profile);
+            // profile created, now log in to get a token
+            const auth = await fetchJson(
+                "/auth/login",
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        identifier: email,
+                        password
+                    })
+                }
+            );
+
+            setSession(auth);
 
             showToast(
-                `Welcome, ${profile.name}. Your profile is ready.`
+                `Welcome, ${auth.profile.name}. Your profile is ready.`
             );
         } catch (profileError) {
             error.textContent =
@@ -933,16 +993,21 @@ $("#profileLoginForm").addEventListener(
         error.textContent = "";
 
         try {
-            const profile = await fetchJson(
-                `/profiles/login?identifier=${encodeURIComponent(
-                    $("#profileIdentifier").value
-                )}`
+            const auth = await fetchJson(
+                "/auth/login",
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        identifier: $("#profileIdentifier").value,
+                        password: $("#loginPassword").value
+                    })
+                }
             );
 
-            setProfile(profile);
+            setSession(auth);
 
             showToast(
-                `Welcome back, ${profile.name}.`
+                `Welcome back, ${auth.profile.name}.`
             );
         } catch (profileError) {
             error.textContent =
@@ -959,13 +1024,7 @@ $("#profileLoginForm").addEventListener(
 $("#logoutButton").addEventListener(
     "click",
     () => {
-        state.profile = null;
-
-        localStorage.removeItem(
-            "showtimeProfile"
-        );
-
-        renderProfile();
+        clearSession();
 
         showToast(
             "You have been logged out."
@@ -1032,7 +1091,6 @@ $("#customerForm").addEventListener(
                     method: "POST",
 
                     body: JSON.stringify({
-                        profileId: state.profile.id,
                         seatLabels: state.selectedSeats
                     })
                 }
@@ -1073,9 +1131,156 @@ document.addEventListener(
 
 
 /* =========================================================
+   ADMIN PANEL
+========================================================= */
+
+// the button is only a convenience: the server checks the ADMIN role on every /admin call
+function updateAdminButton() {
+    $("#adminButton").hidden = !(
+        state.profile && state.profile.role === "ADMIN"
+    );
+}
+
+async function openAdminModal() {
+    $("#adminModal").hidden = false;
+
+    document.body.style.overflow = "hidden";
+
+    await loadAdminOptions();
+}
+
+// fills the movie and theatre dropdowns of the "Add show" form
+async function loadAdminOptions() {
+    const city = $("#citySelect").value;
+
+    $("#showMovie").innerHTML = state.movies
+        .map(movie =>
+            `<option value="${movie.id}">${escapeHtml(movie.title)}</option>`
+        )
+        .join("");
+
+    try {
+        const theatres = await fetchJson(
+            `/theatres?city=${encodeURIComponent(city)}`
+        );
+
+        $("#showTheatre").innerHTML = theatres.length
+            ? theatres
+                .map(theatre =>
+                    `<option value="${theatre.id}">${escapeHtml(theatre.name)}</option>`
+                )
+                .join("")
+            : `<option value="">No theatres in ${escapeHtml(city)} yet</option>`;
+    } catch (error) {
+        $("#showTheatre").innerHTML =
+            `<option value="">Could not load theatres</option>`;
+    }
+}
+
+// one helper used by all three admin forms
+async function submitAdmin(event, path, body, errorSelector, successText, after) {
+    event.preventDefault();
+
+    const error = $(errorSelector);
+
+    error.textContent = "";
+
+    try {
+        const result = await fetchJson(
+            path,
+            {
+                method: "POST",
+                body: JSON.stringify(body)
+            }
+        );
+
+        event.target.reset();
+
+        showToast(successText(result));
+
+        if (after) await after();
+    } catch (adminError) {
+        error.textContent = adminError.message;
+    }
+}
+
+$("#adminButton").addEventListener("click", openAdminModal);
+
+$("#closeAdminButton").addEventListener("click", closeModals);
+
+document.querySelectorAll("[data-admin-tab]").forEach(tab => {
+    tab.addEventListener("click", () => {
+        document.querySelectorAll("[data-admin-tab]")
+            .forEach(t => t.classList.toggle("active", t === tab));
+
+        ["adminMovieForm", "adminTheatreForm", "adminShowForm"]
+            .forEach(id => {
+                $("#" + id).hidden = id !== tab.dataset.adminTab;
+            });
+    });
+});
+
+$("#adminMovieForm").addEventListener("submit", event =>
+    submitAdmin(
+        event,
+        "/admin/movies",
+        {
+            title: $("#movieTitle").value.trim(),
+            language: $("#movieLanguage").value.trim(),
+            genre: $("#movieGenre").value.trim(),
+            durationInMin: Number($("#movieDuration").value),
+            certificate: $("#movieCertificate").value.trim(),
+            posterUrl: $("#moviePoster").value.trim() || null,
+            description: $("#movieDescription").value.trim()
+        },
+        "#adminMovieError",
+        movie => `Movie "${movie.title}" added.`,
+        async () => {
+            await loadMovies();
+            await loadAdminOptions();
+        }
+    )
+);
+
+$("#adminTheatreForm").addEventListener("submit", event =>
+    submitAdmin(
+        event,
+        "/admin/theatres",
+        {
+            name: $("#theatreName").value.trim(),
+            city: $("#theatreCity").value,
+            address: $("#theatreAddress").value.trim()
+        },
+        "#adminTheatreError",
+        theatre => `Theatre "${theatre.name}" added in ${theatre.city}.`,
+        loadAdminOptions
+    )
+);
+
+$("#adminShowForm").addEventListener("submit", event =>
+    submitAdmin(
+        event,
+        "/admin/shows",
+        {
+            movieId: Number($("#showMovie").value),
+            theatreId: Number($("#showTheatre").value),
+            startsAt: $("#showStart").value,
+            ticketPrice: Number($("#showPrice").value),
+            rows: Number($("#showRows").value),
+            seatsPerRow: Number($("#showSeats").value)
+        },
+        "#adminShowError",
+        () => "Show added with all its seats.",
+        loadShows
+    )
+);
+
+
+/* =========================================================
    INITIALIZE APP
 ========================================================= */
 
 renderDates();
+updateAdminButton();
 loadMovies();
 loadShows();

@@ -8,24 +8,21 @@
     <meta name="theme-color" content="#171719">
     <title>ShowSlot | Movies, Events & More</title>
 
-```
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-    rel="stylesheet"
->
+    <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+            rel="stylesheet"
+    >
 
-<link rel="stylesheet" href="style.css">
-```
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
-    <div class="site-shell">
+<div class="site-shell">
 
-```
     <!-- =========================
          HEADER
     ========================== -->
@@ -33,9 +30,9 @@
     <header class="topbar">
 
         <a
-            class="brand"
-            href="#top"
-            aria-label="ShowSlot home"
+                class="brand"
+                href="#top"
+                aria-label="ShowSlot home"
         >
             <span class="brand-mark" aria-hidden="true">S</span>
 
@@ -46,11 +43,11 @@
             <span class="search-icon" aria-hidden="true">⌕</span>
 
             <input
-                id="searchInput"
-                type="search"
-                placeholder="Search for movies, events, plays..."
-                autocomplete="off"
-                aria-label="Search movies, events and plays"
+                    id="searchInput"
+                    type="search"
+                    placeholder="Search for movies, events, plays..."
+                    autocomplete="off"
+                    aria-label="Search movies, events and plays"
             >
         </label>
 
@@ -60,8 +57,8 @@
                 <span aria-hidden="true">⌖</span>
 
                 <select
-                    id="citySelect"
-                    aria-label="Select city"
+                        id="citySelect"
+                        aria-label="Select city"
                 >
                     <option value="Bengaluru">Bengaluru</option>
                     <option value="Mumbai">Mumbai</option>
@@ -70,10 +67,19 @@
             </label>
 
             <button
-                id="profileButton"
-                class="profile-button"
-                type="button"
-                aria-label="Account"
+                    id="adminButton"
+                    class="text-button"
+                    type="button"
+                    hidden
+            >
+                Admin
+            </button>
+
+            <button
+                    id="profileButton"
+                    class="profile-button"
+                    type="button"
+                    aria-label="Account"
             >
                 RS
             </button>
@@ -91,16 +97,16 @@
         <!-- HERO -->
 
         <section
-            class="hero-section"
-            aria-label="Featured movie"
+                class="hero-section"
+                aria-label="Featured movie"
         >
 
             <div class="hero-image-wrap">
                 <img
-                    id="heroImage"
-                    class="hero-image"
-                    src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1600"
-                    alt="Featured movie artwork"
+                        id="heroImage"
+                        class="hero-image"
+                        src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1600"
+                        alt="Featured movie artwork"
                 >
             </div>
 
@@ -117,8 +123,8 @@
                 </h1>
 
                 <p
-                    id="heroDescription"
-                    class="hero-description"
+                        id="heroDescription"
+                        class="hero-description"
                 >
                     Big screens, first-day energy, and a seat with your name on it.
                 </p>
@@ -138,9 +144,9 @@
                 </div>
 
                 <button
-                    id="heroBrowseButton"
-                    class="primary-button"
-                    type="button"
+                        id="heroBrowseButton"
+                        class="primary-button"
+                        type="button"
                 >
                     Explore movies
                     <span aria-hidden="true">→</span>
@@ -149,8 +155,8 @@
             </div>
 
             <div
-                class="hero-meta"
-                aria-hidden="true"
+                    class="hero-meta"
+                    aria-hidden="true"
             >
                 <span>01</span>
                 <i></i>
@@ -165,9 +171,9 @@
         ========================== -->
 
         <section
-            class="content-section"
-            id="moviesSection"
-            aria-labelledby="moviesHeading"
+                class="content-section"
+                id="moviesSection"
+                aria-labelledby="moviesHeading"
         >
 
             <div class="section-heading">
@@ -185,9 +191,9 @@
                 </div>
 
                 <button
-                    id="viewAllButton"
-                    class="text-button"
-                    type="button"
+                        id="viewAllButton"
+                        class="text-button"
+                        type="button"
                 >
                     View all
                     <span aria-hidden="true">↗</span>
@@ -199,52 +205,52 @@
             <!-- Movie filters -->
 
             <div
-                id="movieFilters"
-                class="filter-rail"
-                aria-label="Movie categories"
+                    id="movieFilters"
+                    class="filter-rail"
+                    aria-label="Movie categories"
             >
 
                 <button
-                    class="filter-button active"
-                    data-filter="All"
-                    type="button"
-                    aria-pressed="true"
+                        class="filter-button active"
+                        data-filter="All"
+                        type="button"
+                        aria-pressed="true"
                 >
                     All movies
                 </button>
 
                 <button
-                    class="filter-button"
-                    data-filter="Hindi"
-                    type="button"
-                    aria-pressed="false"
+                        class="filter-button"
+                        data-filter="Hindi"
+                        type="button"
+                        aria-pressed="false"
                 >
                     Bollywood
                 </button>
 
                 <button
-                    class="filter-button"
-                    data-filter="English"
-                    type="button"
-                    aria-pressed="false"
+                        class="filter-button"
+                        data-filter="English"
+                        type="button"
+                        aria-pressed="false"
                 >
                     Hollywood
                 </button>
 
                 <button
-                    class="filter-button"
-                    data-filter="Action"
-                    type="button"
-                    aria-pressed="false"
+                        class="filter-button"
+                        data-filter="Action"
+                        type="button"
+                        aria-pressed="false"
                 >
                     Action
                 </button>
 
                 <button
-                    class="filter-button"
-                    data-filter="Comedy"
-                    type="button"
-                    aria-pressed="false"
+                        class="filter-button"
+                        data-filter="Comedy"
+                        type="button"
+                        aria-pressed="false"
                 >
                     Comedy
                 </button>
@@ -255,10 +261,10 @@
             <!-- Movie cards are populated by app.js -->
 
             <div
-                id="movieGrid"
-                class="movie-grid"
-                aria-live="polite"
-                aria-busy="true"
+                    id="movieGrid"
+                    class="movie-grid"
+                    aria-live="polite"
+                    aria-busy="true"
             >
                 <div class="loading-state">
                     <span class="loader" aria-hidden="true"></span>
@@ -274,9 +280,9 @@
         ========================== -->
 
         <section
-            class="showtimes-section"
-            id="showtimesSection"
-            aria-labelledby="showtimesHeading"
+                class="showtimes-section"
+                id="showtimesSection"
+                aria-labelledby="showtimesHeading"
         >
 
             <div class="section-heading showtimes-heading">
@@ -294,19 +300,19 @@
                 </div>
 
                 <div
-                    id="datePicker"
-                    class="date-picker"
-                    aria-label="Choose date"
+                        id="datePicker"
+                        class="date-picker"
+                        aria-label="Choose date"
                 ></div>
 
             </div>
 
 
             <div
-                id="showList"
-                class="show-list"
-                aria-live="polite"
-                aria-busy="true"
+                    id="showList"
+                    class="show-list"
+                    aria-live="polite"
+                    aria-busy="true"
             >
                 <div class="loading-state">
                     <span class="loader" aria-hidden="true"></span>
@@ -328,8 +334,8 @@
         <div class="brand footer-brand">
 
             <span
-                class="brand-mark"
-                aria-hidden="true"
+                    class="brand-mark"
+                    aria-hidden="true"
             >
                 S
             </span>
@@ -356,23 +362,23 @@
 ========================== -->
 
 <div
-    id="bookingModal"
-    class="modal-backdrop"
-    hidden
+        id="bookingModal"
+        class="modal-backdrop"
+        hidden
 >
 
     <section
-        class="booking-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modalTitle"
+            class="booking-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalTitle"
     >
 
         <button
-            id="closeModalButton"
-            class="close-button"
-            type="button"
-            aria-label="Close booking dialog"
+                id="closeModalButton"
+                class="close-button"
+                type="button"
+                aria-label="Close booking dialog"
         >
             ×
         </button>
@@ -388,16 +394,16 @@
             </h2>
 
             <p
-                id="modalSubtitle"
-                class="muted-text"
+                    id="modalSubtitle"
+                    class="muted-text"
             ></p>
 
         </div>
 
 
         <div
-            class="screen-label"
-            aria-hidden="true"
+                class="screen-label"
+                aria-hidden="true"
         >
             <span></span>
             SCREEN
@@ -406,9 +412,9 @@
 
 
         <div
-            id="seatGrid"
-            class="seat-grid"
-            aria-label="Seat selection"
+                id="seatGrid"
+                class="seat-grid"
+                aria-label="Seat selection"
         ></div>
 
 
@@ -445,10 +451,10 @@
             </div>
 
             <button
-                id="continueButton"
-                class="primary-button"
-                type="button"
-                disabled
+                    id="continueButton"
+                    class="primary-button"
+                    type="button"
+                    disabled
             >
                 Continue
                 <span aria-hidden="true">→</span>
@@ -466,23 +472,23 @@
 ========================== -->
 
 <div
-    id="customerModal"
-    class="modal-backdrop"
-    hidden
+        id="customerModal"
+        class="modal-backdrop"
+        hidden
 >
 
     <section
-        class="booking-modal customer-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="customerTitle"
+            class="booking-modal customer-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="customerTitle"
     >
 
         <button
-            id="closeCustomerButton"
-            class="close-button"
-            type="button"
-            aria-label="Close booking dialog"
+                id="closeCustomerButton"
+                class="close-button"
+                type="button"
+                aria-label="Close booking dialog"
         >
             ×
         </button>
@@ -498,16 +504,16 @@
             </h2>
 
             <p
-                id="bookingProfileLabel"
-                class="muted-text"
+                    id="bookingProfileLabel"
+                    class="muted-text"
             ></p>
 
         </div>
 
 
         <form
-            id="customerForm"
-            class="customer-form"
+                id="customerForm"
+                class="customer-form"
         >
 
             <div class="form-summary">
@@ -519,17 +525,17 @@
             </div>
 
             <button
-                class="primary-button form-submit"
-                type="submit"
+                    class="primary-button form-submit"
+                    type="submit"
             >
                 Confirm booking
                 <span aria-hidden="true">→</span>
             </button>
 
             <p
-                id="bookingError"
-                class="form-error"
-                role="alert"
+                    id="bookingError"
+                    class="form-error"
+                    role="alert"
             ></p>
 
         </form>
@@ -544,23 +550,23 @@
 ========================== -->
 
 <div
-    id="accountModal"
-    class="modal-backdrop"
-    hidden
+        id="accountModal"
+        class="modal-backdrop"
+        hidden
 >
 
     <section
-        class="booking-modal account-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="accountTitle"
+            class="booking-modal account-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="accountTitle"
     >
 
         <button
-            id="closeAccountButton"
-            class="close-button"
-            type="button"
-            aria-label="Close account dialog"
+                id="closeAccountButton"
+                class="close-button"
+                type="button"
+                aria-label="Close account dialog"
         >
             ×
         </button>
@@ -584,24 +590,24 @@
 
 
         <div
-            id="profileAuth"
-            class="profile-auth"
+                id="profileAuth"
+                class="profile-auth"
         >
 
             <div class="auth-tabs">
 
                 <button
-                    id="createTab"
-                    class="auth-tab active"
-                    type="button"
+                        id="createTab"
+                        class="auth-tab active"
+                        type="button"
                 >
                     Create profile
                 </button>
 
                 <button
-                    id="loginTab"
-                    class="auth-tab"
-                    type="button"
+                        id="loginTab"
+                        class="auth-tab"
+                        type="button"
                 >
                     Log in
                 </button>
@@ -612,18 +618,18 @@
             <!-- Create profile -->
 
             <form
-                id="profileCreateForm"
-                class="account-form"
+                    id="profileCreateForm"
+                    class="account-form"
             >
 
                 <label>
                     Full name
 
                     <input
-                        id="profileName"
-                        required
-                        maxlength="100"
-                        placeholder="Your name"
+                            id="profileName"
+                            required
+                            maxlength="100"
+                            placeholder="Your name"
                     >
                 </label>
 
@@ -632,11 +638,11 @@
                     Email address
 
                     <input
-                        id="profileEmail"
-                        required
-                        type="email"
-                        maxlength="200"
-                        placeholder="you@example.com"
+                            id="profileEmail"
+                            required
+                            type="email"
+                            maxlength="200"
+                            placeholder="you@example.com"
                     >
                 </label>
 
@@ -645,19 +651,34 @@
                     Mobile number
 
                     <input
-                        id="profilePhone"
-                        required
-                        type="tel"
-                        pattern="[0-9+ ()-]{10,20}"
-                        maxlength="20"
-                        placeholder="98765 43210"
+                            id="profilePhone"
+                            required
+                            type="tel"
+                            pattern="[0-9+ ()-]{10,20}"
+                            maxlength="20"
+                            placeholder="98765 43210"
+                    >
+                </label>
+
+
+                <label>
+                    Password
+
+                    <input
+                            id="profilePassword"
+                            required
+                            type="password"
+                            minlength="8"
+                            maxlength="72"
+                            autocomplete="new-password"
+                            placeholder="At least 8 characters"
                     >
                 </label>
 
 
                 <button
-                    class="primary-button form-submit"
-                    type="submit"
+                        class="primary-button form-submit"
+                        type="submit"
                 >
                     Create profile
                     <span aria-hidden="true">→</span>
@@ -665,9 +686,9 @@
 
 
                 <p
-                    id="profileCreateError"
-                    class="form-error"
-                    role="alert"
+                        id="profileCreateError"
+                        class="form-error"
+                        role="alert"
                 ></p>
 
             </form>
@@ -676,25 +697,38 @@
             <!-- Login -->
 
             <form
-                id="profileLoginForm"
-                class="account-form"
-                hidden
+                    id="profileLoginForm"
+                    class="account-form"
+                    hidden
             >
 
                 <label>
                     Email or mobile number
 
                     <input
-                        id="profileIdentifier"
-                        required
-                        placeholder="you@example.com or 98765 43210"
+                            id="profileIdentifier"
+                            required
+                            placeholder="you@example.com or 98765 43210"
+                    >
+                </label>
+
+
+                <label>
+                    Password
+
+                    <input
+                            id="loginPassword"
+                            required
+                            type="password"
+                            autocomplete="current-password"
+                            placeholder="Your password"
                     >
                 </label>
 
 
                 <button
-                    class="primary-button form-submit"
-                    type="submit"
+                        class="primary-button form-submit"
+                        type="submit"
                 >
                     Log in
                     <span aria-hidden="true">→</span>
@@ -702,9 +736,9 @@
 
 
                 <p
-                    id="profileLoginError"
-                    class="form-error"
-                    role="alert"
+                        id="profileLoginError"
+                        class="form-error"
+                        role="alert"
                 ></p>
 
             </form>
@@ -715,16 +749,16 @@
         <!-- Logged-in profile -->
 
         <div
-            id="profileView"
-            class="profile-view"
-            hidden
+                id="profileView"
+                class="profile-view"
+                hidden
         >
 
             <div class="profile-summary">
 
                 <div
-                    class="profile-avatar"
-                    aria-hidden="true"
+                        class="profile-avatar"
+                        aria-hidden="true"
                 >
                     S
                 </div>
@@ -738,9 +772,9 @@
                 </div>
 
                 <button
-                    id="logoutButton"
-                    class="text-button"
-                    type="button"
+                        id="logoutButton"
+                        class="text-button"
+                        type="button"
                 >
                     Log out
                 </button>
@@ -754,9 +788,9 @@
 
 
             <div
-                id="bookingHistory"
-                class="booking-history"
-                aria-live="polite"
+                    id="bookingHistory"
+                    class="booking-history"
+                    aria-live="polite"
             ></div>
 
         </div>
@@ -767,19 +801,99 @@
 
 
 <!-- =========================
+     ADMIN MODAL
+========================== -->
+
+<div
+        id="adminModal"
+        class="modal-backdrop"
+        hidden
+>
+
+    <section
+            class="booking-modal account-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="adminTitle"
+    >
+
+        <button
+                id="closeAdminButton"
+                class="close-button"
+                type="button"
+                aria-label="Close admin panel"
+        >
+            ×
+        </button>
+
+        <div class="modal-header">
+            <p class="eyebrow">Admin only</p>
+            <h2 id="adminTitle">Manage catalogue</h2>
+        </div>
+
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-admin-tab="adminMovieForm" type="button">Add movie</button>
+            <button class="auth-tab" data-admin-tab="adminTheatreForm" type="button">Add theatre</button>
+            <button class="auth-tab" data-admin-tab="adminShowForm" type="button">Add show</button>
+        </div>
+
+        <!-- Add movie -->
+        <form id="adminMovieForm" class="account-form">
+            <label>Title <input id="movieTitle" required maxlength="200"></label>
+            <label>Language <input id="movieLanguage" required placeholder="Hindi"></label>
+            <label>Genre <input id="movieGenre" required placeholder="Drama"></label>
+            <label>Duration (minutes) <input id="movieDuration" required type="number" min="1"></label>
+            <label>Certificate <input id="movieCertificate" placeholder="UA"></label>
+            <label>Poster path or URL <input id="moviePoster" placeholder="./images/12thfail.jpg"></label>
+            <label>Description <input id="movieDescription" maxlength="255"></label>
+            <button class="primary-button form-submit" type="submit">Add movie <span aria-hidden="true">→</span></button>
+            <p id="adminMovieError" class="form-error" role="alert"></p>
+        </form>
+
+        <!-- Add theatre -->
+        <form id="adminTheatreForm" class="account-form" hidden>
+            <label>Theatre name <input id="theatreName" required></label>
+            <label>City
+                <select id="theatreCity">
+                    <option>Bengaluru</option>
+                    <option>Mumbai</option>
+                    <option>Delhi</option>
+                </select>
+            </label>
+            <label>Address <input id="theatreAddress" required></label>
+            <button class="primary-button form-submit" type="submit">Add theatre <span aria-hidden="true">→</span></button>
+            <p id="adminTheatreError" class="form-error" role="alert"></p>
+        </form>
+
+        <!-- Add show -->
+        <form id="adminShowForm" class="account-form" hidden>
+            <label>Movie <select id="showMovie" required></select></label>
+            <label>Theatre (in the city chosen in the page header) <select id="showTheatre" required></select></label>
+            <label>Starts at <input id="showStart" required type="datetime-local"></label>
+            <label>Ticket price <input id="showPrice" required type="number" min="1" step="0.01"></label>
+            <label>Rows (A to Z, max 26) <input id="showRows" required type="number" min="1" max="26" value="8"></label>
+            <label>Seats per row (max 30) <input id="showSeats" required type="number" min="1" max="30" value="10"></label>
+            <button class="primary-button form-submit" type="submit">Add show <span aria-hidden="true">→</span></button>
+            <p id="adminShowError" class="form-error" role="alert"></p>
+        </form>
+
+    </section>
+</div>
+
+
+<!-- =========================
      SUCCESS NOTIFICATION
 ========================== -->
 
 <div
-    id="successToast"
-    class="success-toast"
-    role="status"
-    aria-live="polite"
+        id="successToast"
+        class="success-toast"
+        role="status"
+        aria-live="polite"
 ></div>
 
 
 <script src="app.js"></script>
-```
 
 </body>
 </html>
