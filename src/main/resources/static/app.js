@@ -64,7 +64,7 @@ const state = {
     shows: [],
     selectedShow: null,
     selectedSeats: [],
-    selectedDate: dateKey(new Date(Date.now() + 86400000)),
+    selectedDate: dateKey(new Date()),
     activeFilter: "All",
     profile: savedProfile,
     token: savedToken,
@@ -290,11 +290,9 @@ function renderHero() {
 ========================================================= */
 
 function renderDates() {
-    const dates = Array.from(
-        { length: 5 },
-        (_, index) =>
-            new Date(Date.now() + (index + 1) * 86400000)
-    );
+  const dates = Array.from({ length: 7 }, (_, index) =>
+      new Date(Date.now() + (index + 1) * 86400000)
+  );
 
     $("#datePicker").innerHTML = dates.map(date => {
         const key = dateKey(date);
